@@ -40,14 +40,16 @@ function getKanbanContext(): KanbanContext {
     columnWidth: columnWidth,
     oneColumnWidth: oneColumnWidth,
     cardWidth: cardWidth,
-    displayedColumns: noOfColumns
+    displayedColumns: noOfColumns,
   };
 
   return deviceInfoContext;
 }
 
 const initialDeviceInfoContext = getKanbanContext();
-const DeviceInfoContext = React.createContext<KanbanContext>(initialDeviceInfoContext);
+const DeviceInfoContext = React.createContext<KanbanContext>(
+  initialDeviceInfoContext
+);
 
 type Props = {
   children: ReactNode;
@@ -58,7 +60,10 @@ export class KanbanContextProvider extends Component<Props, KanbanContext> {
   resizeSubscription: EmitterSubscription | null = null;
 
   componentDidMount() {
-    this.resizeSubscription = Dimensions.addEventListener('change', this.handleOrientationChange);
+    this.resizeSubscription = Dimensions.addEventListener(
+      'change',
+      this.handleOrientationChange
+    );
   }
 
   componentWillUnmount() {

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-type Props = {
-};
+type Props = {};
 
 export default class EmptyColumn extends Component<Props> {
   render() {
@@ -10,7 +9,7 @@ export default class EmptyColumn extends Component<Props> {
       <View style={styles.container}>
         <Text style={styles.textStyle}>{'Empty'}</Text>
       </View>
-    )
+    );
   }
 }
 
@@ -19,12 +18,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 100
+    minHeight: 100,
   },
   textStyle: {
     color: '#DDDDDD',
     fontSize: 24,
     marginTop: 24,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });

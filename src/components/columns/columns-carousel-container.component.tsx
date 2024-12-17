@@ -5,7 +5,7 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 
 import { COLUMN_MARGIN } from '../../board-consts';
@@ -19,7 +19,10 @@ type Props = KanbanContext & {
   data: ColumnModel[];
   itemWidth: number;
   onScrollEndDrag: () => void;
-  renderItem: (item: ColumnModel, singleDataColumnAvailable: boolean) => JSX.Element;
+  renderItem: (
+    item: ColumnModel,
+    singleDataColumnAvailable: boolean
+  ) => JSX.Element;
   sliderWidth: number;
   scrollEnabled: boolean;
 };
@@ -37,13 +40,16 @@ export class ColumnSnapContainer extends Component<Props, State> {
 
     this.state = {
       oneColumnActiveItemIndex: INITIAL_ACTIVE_ITEM,
-      scrollOffsetX: 0
+      scrollOffsetX: 0,
     };
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.displayedColumns === 1 &&
-      (prevProps.itemWidth !== this.props.itemWidth || prevProps.sliderWidth !== this.props.sliderWidth)) {
+    if (
+      this.props.displayedColumns === 1 &&
+      (prevProps.itemWidth !== this.props.itemWidth ||
+        prevProps.sliderWidth !== this.props.sliderWidth)
+    ) {
       this.scrollToItem(this.state.oneColumnActiveItemIndex);
     }
   }
@@ -63,11 +69,11 @@ export class ColumnSnapContainer extends Component<Props, State> {
     const activeItemIndex = Math.round(offsetX / itemWidth);
     this.setState({
       oneColumnActiveItemIndex: activeItemIndex,
-      scrollOffsetX: offsetX
+      scrollOffsetX: offsetX,
     });
 
     this.onScrollEndDrag();
-  }
+  };
 
   snapToPrev = () => {
     const { itemWidth } = this.props;
@@ -86,7 +92,10 @@ export class ColumnSnapContainer extends Component<Props, State> {
     const { scrollOffsetX } = this.state;
 
     const maxScrollOffsetX = (data.length - 1) * (itemWidth + COLUMN_MARGIN);
-    const nextOffset = Math.min(maxScrollOffsetX, scrollOffsetX + itemWidth + COLUMN_MARGIN);
+    const nextOffset = Math.min(
+      maxScrollOffsetX,
+      scrollOffsetX + itemWidth + COLUMN_MARGIN
+    );
 
     this.scrollToOffset(nextOffset);
   };
@@ -131,28 +140,41 @@ export class ColumnSnapContainer extends Component<Props, State> {
           renderToHardwareTextureAndroid={true}
           scrollEnabled={scrollEnabled}
           style={[styles.scrollContainer, { width: sliderWidth }]}
-          contentContainerStyle={[styles.contentContainer, { paddingLeft: COLUMN_MARGIN }]}
+          contentContainerStyle={[
+            styles.contentContainer,
+            { paddingLeft: COLUMN_MARGIN },
+          ]}
           horizontal={true}
           scrollEventThrottle={16}
           snapToInterval={this.props.itemWidth + COLUMN_MARGIN}
-          onMomentumScrollEnd={this.onMomentumScrollEnd}>
+          onMomentumScrollEnd={this.onMomentumScrollEnd}
+        >
           {data.map((item, index) => (
-            <View key={`carousel-item-${index}`} style={{ width: this.props.itemWidth, marginRight: COLUMN_MARGIN }}>
+            <View
+              key={`carousel-item-${index}`}
+              style={{
+                width: this.props.itemWidth,
+                marginRight: COLUMN_MARGIN,
+              }}
+            >
               {this.props.renderItem(item, singleDataColumnAvailable)}
             </View>
           ))}
         </ScrollView>
 
-        {singleColumnDisplay &&
+        {singleColumnDisplay && (
           <View style={styles.positionIndicatorContainer}>
             {data.map((_, index) => (
               <Dot
                 key={`carousel-pos-indicator-${index}`}
-                color={oneColumnActiveItemIndex === index ? '#000000' : '#DDDDDD'}
+                color={
+                  oneColumnActiveItemIndex === index ? '#000000' : '#DDDDDD'
+                }
                 style={styles.positionIndicator}
               />
             ))}
-          </View>}
+          </View>
+        )}
       </View>
     );
   }

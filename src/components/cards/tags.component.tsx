@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View, StyleProp, ViewStyle, TextStyle } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 
 import { Tag } from '../../models/tag';
 
@@ -8,7 +16,7 @@ type Props = {
   swiperContainerStyle?: StyleProp<ViewStyle>;
   listItemStyle?: StyleProp<ViewStyle>;
   tagTextStyle?: StyleProp<TextStyle>;
-}
+};
 
 export class Tags extends Component<Props> {
   render() {
@@ -22,27 +30,40 @@ export class Tags extends Component<Props> {
           data={this.props.items}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
-            <View style={[styles.listItem, { backgroundColor: item.backgroundColor }, listItemStyle]}>
+            <View
+              style={[
+                styles.listItem,
+                { backgroundColor: item.backgroundColor },
+                listItemStyle,
+              ]}
+            >
               <Text
-                style={[styles.tagText, { color: item.textColor }, tagTextStyle]}>{item.text}</Text>
+                style={[
+                  styles.tagText,
+                  { color: item.textColor },
+                  tagTextStyle,
+                ]}
+              >
+                {item.text}
+              </Text>
             </View>
-          )} />
+          )}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  swiperContainer: {
-  },
+  swiperContainer: {},
   listItem: {
     paddingHorizontal: 8,
     marginRight: 8,
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
-    borderWidth: 1
+    borderWidth: 1,
   },
   tagText: {
-    fontSize: 8
-  }
+    fontSize: 8,
+  },
 });

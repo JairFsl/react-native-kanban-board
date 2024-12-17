@@ -12,4 +12,4 @@ export function isTablet(): boolean {
     const tabletSmallestDimension = 600;
     return smallestDimension >= tabletSmallestDimension;
   }
-};
+}

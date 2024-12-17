@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 
 type Props = {
   value: string | number;
   backgroundColor?: string;
   badgeStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
-}
+};
 
 export class Badge extends Component<Props> {
   render() {
@@ -15,7 +22,13 @@ export class Badge extends Component<Props> {
     const color = backgroundColor || '#000';
 
     return (
-      <View style={[styles.badge, { borderColor: color, backgroundColor: color }, badgeStyle]}>
+      <View
+        style={[
+          styles.badge,
+          { borderColor: color, backgroundColor: color },
+          badgeStyle,
+        ]}
+      >
         <Text style={[styles.text, textStyle]}>{value}</Text>
       </View>
     );
@@ -28,7 +41,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   text: {
     color: '#fff',

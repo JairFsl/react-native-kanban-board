@@ -53,9 +53,21 @@ export class ColumnModel {
     this._ref.measure((_x, _y, width, height, pageX, pageY) => {
       this._rect = { x: pageX, y: pageY, width, height };
 
-      if (!this._isRenderedAndVisible && this._rect.x && this._rect.y && this._rect.width && this._rect.height) {
+      if (
+        !this._isRenderedAndVisible &&
+        this._rect.x &&
+        this._rect.y &&
+        this._rect.width &&
+        this._rect.height
+      ) {
         this.setIsRenderedAndVisible(true);
-      } else if (this._isRenderedAndVisible && !this._rect.x && !this._rect.y && !this._rect.width && !this._rect.height) {
+      } else if (
+        this._isRenderedAndVisible &&
+        !this._rect.x &&
+        !this._rect.y &&
+        !this._rect.width &&
+        !this._rect.height
+      ) {
         this.setIsRenderedAndVisible(false);
       }
     });

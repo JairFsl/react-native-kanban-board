@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
   TouchableOpacity,
   StyleProp,
@@ -6,7 +6,7 @@ import {
   Text,
   View,
   ViewStyle,
-  TextStyle
+  TextStyle,
 } from 'react-native';
 
 import { CardModel } from '../../models/card-model';
@@ -46,7 +46,7 @@ export type CardExternalProps = {
    * Custom style for the card content text.
    */
   cardContentTextStyle?: StyleProp<TextStyle>;
-}
+};
 
 type Props = CardExternalProps &
   KanbanContext & {
@@ -56,17 +56,14 @@ type Props = CardExternalProps &
 
 class Card extends Component<Props> {
   onPress = () => {
-    const {
-      onCardPress,
-      model
-    } = this.props;
+    const { onCardPress, model } = this.props;
 
     if (!onCardPress) {
       return;
     }
 
     onCardPress(model);
-  }
+  };
 
   render() {
     const {
@@ -76,34 +73,41 @@ class Card extends Component<Props> {
       cardContainerStyle,
       cardTitleTextStyle,
       cardSubtitleTextStyle,
-      cardContentTextStyle
+      cardContentTextStyle,
     } = this.props;
 
     return (
-      <View style={[styles.container, cardContainerStyle, hidden && { opacity: 0 }]}>
-        <TouchableOpacity
-          onPress={this.onPress}>
-          {renderCardContent &&
-            renderCardContent(model)}
+      <View
+        style={[styles.container, cardContainerStyle, hidden && { opacity: 0 }]}
+      >
+        <TouchableOpacity onPress={this.onPress}>
+          {renderCardContent && renderCardContent(model)}
 
-          {!renderCardContent &&
+          {!renderCardContent && (
             <React.Fragment>
               <View style={styles.cardHeaderContainer}>
                 <View style={styles.cardTitleContainer}>
-                  <Text style={[cardTitleTextStyle, styles.cardTitleText]}>{model.title}</Text>
+                  <Text style={[cardTitleTextStyle, styles.cardTitleText]}>
+                    {model.title}
+                  </Text>
                 </View>
-                <Text style={[cardSubtitleTextStyle, styles.cardSubtitleText]}>{model.subtitle}</Text>
+                <Text style={[cardSubtitleTextStyle, styles.cardSubtitleText]}>
+                  {model.subtitle}
+                </Text>
               </View>
               <View style={styles.cardContentContainer}>
-                <Text style={[cardContentTextStyle, styles.cardContentText]}>{model.description}</Text>
+                <Text style={[cardContentTextStyle, styles.cardContentText]}>
+                  {model.description}
+                </Text>
               </View>
               {model.tags && model.tags.length > 0 && (
                 <Tags items={model.tags} />
               )}
-            </React.Fragment>}
+            </React.Fragment>
+          )}
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 }
 
@@ -117,23 +121,22 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#FFFFFF',
     marginBottom: 16,
-    elevation: 3
+    elevation: 3,
   },
   cardHeaderContainer: {
-    marginBottom: 16
+    marginBottom: 16,
   },
   cardTitleContainer: {
-    marginBottom: 8
+    marginBottom: 8,
   },
   cardTitleText: {
     fontWeight: 'bold',
   },
-  cardSubtitleText: {
-  },
+  cardSubtitleText: {},
   cardContentContainer: {
-    marginBottom: 16
+    marginBottom: 16,
   },
   cardContentText: {
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });

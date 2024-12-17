@@ -7,11 +7,9 @@ export function logError(err: any) {
   if (asError != null) {
     console.error(asError.message);
     console.error(asError.stack);
-  }
-  else if (asString != null) {
+  } else if (asString != null) {
     console.error(asString);
-  }
-  else {
+  } else {
     console.error(JSON.stringify(err));
   }
 }
