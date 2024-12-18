@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { Component } from 'react';
+import React from 'react';
 import {
   TouchableOpacity,
   StyleProp,
@@ -55,7 +55,7 @@ type Props = CardExternalProps &
     hidden: boolean;
   };
 
-class Card extends Component<Props> {
+class Card extends React.PureComponent<Props> {
   onPress = () => {
     const { onCardPress, model } = this.props;
 

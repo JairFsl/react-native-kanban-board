@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -15,7 +15,7 @@ type Props = {
   textStyle?: StyleProp<TextStyle>;
 };
 
-export class Badge extends Component<Props> {
+export class Badge extends React.PureComponent<Props> {
   render() {
     const { value, backgroundColor, badgeStyle, textStyle } = this.props;
 

@@ -53,7 +53,7 @@ type Props = KanbanContext &
 
 type State = {};
 
-export class Column extends React.Component<Props, State> {
+export class Column extends React.PureComponent<Props, State> {
   scrollingDown: boolean = false;
   flatList: React.RefObject<FlatList<CardModel>> =
     React.createRef<FlatList<CardModel>>();
@@ -143,16 +143,26 @@ export class Column extends React.Component<Props, State> {
           styles.columnContainer,
           {
             width: singleDataColumnAvailable ? oneColumnWidth : columnWidth,
-            marginRight: singleDataColumnAvailable ? 0 : COLUMN_MARGIN,
+            marginHorizontal: singleDataColumnAvailable ? 0 : COLUMN_MARGIN,
           },
         ]}
       >
         <View
           style={[styles.columnHeaderContainer, columnHeaderContainerStyle]}
         >
-          <Text style={[styles.columnHeaderTitle, columnHeaderTitleStyle]}>
-            {column.title}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+            <View
+              style={{
+                width: 19,
+                height: 19,
+                borderRadius: 19,
+                backgroundColor: '#FF9500',
+              }}
+            />
+            <Text style={[styles.columnHeaderTitle, columnHeaderTitleStyle]}>
+              {column.title}
+            </Text>
+          </View>
           {isWithCountBadge && (
             <View style={styles.columnHeaderRightContainer}>
               <Badge value={noOfItems} />
@@ -195,14 +205,15 @@ export default Column;
 
 const styles = StyleSheet.create({
   columnContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
+    flex: 1,
+    backgroundColor: '#F2F2F2',
+    borderRadius: 15,
     padding: 8,
   },
   columnHeaderContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 24,
+    marginBottom: 20,
   },
   columnHeaderTitle: {
     fontSize: 16,

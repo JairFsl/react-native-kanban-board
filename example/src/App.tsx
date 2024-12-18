@@ -11,7 +11,7 @@ type AppState = {
   cards: CardModel[];
 };
 
-class App extends React.Component<{}, AppState> {
+class App extends React.PureComponent<{}, AppState> {
   exampleCardNo: number = 1;
 
   constructor(props: {}) {

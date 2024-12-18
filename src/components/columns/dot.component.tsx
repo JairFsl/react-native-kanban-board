@@ -7,7 +7,7 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export class Dot extends React.Component<Props> {
+export class Dot extends React.PureComponent<Props> {
   render() {
     return (
       <View

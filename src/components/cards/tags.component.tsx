@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -18,7 +18,7 @@ type Props = {
   tagTextStyle?: StyleProp<TextStyle>;
 };
 
-export class Tags extends Component<Props> {
+export class Tags extends React.PureComponent<Props> {
   render() {
     const { swiperContainerStyle, listItemStyle, tagTextStyle } = this.props;
 

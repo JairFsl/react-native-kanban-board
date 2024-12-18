@@ -34,6 +34,7 @@ import WrappedColumn, {
 } from './columns/column.component';
 import { KanbanContext, withKanbanContext } from './kanban-context.provider';
 import { moveElementToNewIndex } from '../utils/array-tools';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export type KanbanBoardProps = CardExternalProps &
   ColumnExternalProps & {
@@ -83,7 +84,7 @@ type State = {
   draggedItemHeight: number;
 };
 
-class KanbanBoard extends React.Component<Props, State> {
+class KanbanBoard extends React.PureComponent<Props, State> {
   dragX: number = 0;
   dragY: number = 0;
   carouselRef: RefObject<ColumnSnapContainer> =
@@ -242,8 +243,8 @@ class KanbanBoard extends React.Component<Props, State> {
     const draggedItemHeight = item!.dimensions!.height;
 
     this.state.pan.setValue({
-      x: this.state.startingX - draggedItemWidth / 2,
-      y: this.state.startingY - draggedItemHeight / 2,
+      x: this.state.startingX - draggedItemWidth / 2 + RFValue(30),
+      y: this.state.startingY - draggedItemHeight / 2 - RFValue(120),
     });
 
     item!.hide(); // hide this item so we can display the 'dragged' item over it
@@ -282,8 +283,16 @@ class KanbanBoard extends React.Component<Props, State> {
 
       //move dragged item
       this.state.pan.setValue({
-        x: this.dragX - this.state.startingX - draggedItemWidth / 2,
-        y: this.dragY - this.state.startingY - draggedItemHeight / 2,
+        x:
+          this.dragX -
+          this.state.startingX -
+          draggedItemWidth / 2 +
+          RFValue(30),
+        y:
+          this.dragY -
+          this.state.startingY -
+          draggedItemHeight / 2 -
+          RFValue(120),
       });
 
       const snapMargin = 50;
@@ -292,10 +301,10 @@ class KanbanBoard extends React.Component<Props, State> {
       let shouldSnapPrevOrScrollLeft = false;
       let shouldSnapNextOrScrollRight = false;
 
-      if (event.nativeEvent.absoluteX < snapMargin) {
+      if (this.dragX < snapMargin) {
         shouldSnapPrevOrScrollLeft = true;
       }
-      if (event.nativeEvent.absoluteX > deviceWidth - snapMargin) {
+      if (this.dragX > deviceWidth - snapMargin) {
         shouldSnapNextOrScrollRight = true;
       }
 
@@ -320,10 +329,7 @@ class KanbanBoard extends React.Component<Props, State> {
         }, snapAfterTimeout);
       }
 
-      const targetColumn = BoardTools.findColumn(
-        boardState,
-        event.nativeEvent.absoluteX
-      );
+      const targetColumn = BoardTools.findColumn(boardState, this.dragX);
       if (targetColumn) {
         this.moveCard(draggedItem!, this.dragX, this.dragY, targetColumn);
         const scrollResult = BoardTools.getScrollingDirection(

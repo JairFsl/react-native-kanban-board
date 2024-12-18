@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-type Props = {};
-
-export default class EmptyColumn extends Component<Props> {
+export default class EmptyColumn extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>

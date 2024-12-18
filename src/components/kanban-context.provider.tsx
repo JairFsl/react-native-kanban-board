@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { Dimensions, EmitterSubscription } from 'react-native';
 
 import { PADDING } from '../board-consts';
@@ -55,7 +55,10 @@ type Props = {
   children: ReactNode;
 };
 
-export class KanbanContextProvider extends Component<Props, KanbanContext> {
+export class KanbanContextProvider extends React.PureComponent<
+  Props,
+  KanbanContext
+> {
   state: KanbanContext = initialDeviceInfoContext;
   resizeSubscription: EmitterSubscription | null = null;
 
@@ -89,7 +92,7 @@ export class KanbanContextProvider extends Component<Props, KanbanContext> {
 export const withKanbanContext = <P extends object>(
   WrappedComponent: React.ComponentType<P & KanbanContext>
 ) => {
-  return class extends Component<P> {
+  return class extends React.PureComponent<P> {
     render() {
       return (
         <DeviceInfoContext.Consumer>

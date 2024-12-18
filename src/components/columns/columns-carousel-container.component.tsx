@@ -1,4 +1,4 @@
-import React, { Component, RefObject } from 'react';
+import React, { RefObject } from 'react';
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -32,7 +32,7 @@ type State = {
   scrollOffsetX: number;
 };
 
-export class ColumnSnapContainer extends Component<Props, State> {
+export class ColumnSnapContainer extends React.PureComponent<Props, State> {
   carouselRef: RefObject<ScrollView> = React.createRef<ScrollView>();
 
   constructor(props: Props) {
