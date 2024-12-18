@@ -154,7 +154,10 @@ export class ColumnSnapContainer extends Component<Props, State> {
               key={`carousel-item-${index}`}
               style={{
                 width: this.props.itemWidth,
-                marginRight: COLUMN_MARGIN,
+                marginRight:
+                  data.length - 1 === index
+                    ? COLUMN_MARGIN + 15
+                    : COLUMN_MARGIN,
               }}
             >
               {this.props.renderItem(item, singleDataColumnAvailable)}
