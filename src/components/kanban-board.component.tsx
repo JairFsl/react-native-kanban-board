@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { RefObject } from 'react';
 import {
   Animated,
@@ -123,11 +124,11 @@ class KanbanBoard extends React.Component<Props, State> {
     let changedColumns: ColumnModel[] | undefined;
     let changedCards: CardModel[] | undefined;
 
-    if (prevProps.columns != columns) {
+    if (prevProps.columns !== columns) {
       changedColumns = columns;
     }
 
-    if (prevProps.cards != cards) {
+    if (prevProps.cards !== cards) {
       changedCards = cards;
     }
 
@@ -437,8 +438,8 @@ class KanbanBoard extends React.Component<Props, State> {
     var itemsFromColumn = newColumnCardsMap.get(fromColumn.id);
     var itemsToColumn = newColumnCardsMap.get(toColumn.id);
 
-    itemsFromColumn = itemsFromColumn!.filter((x) => x.id != item.id);
-    itemsToColumn = itemsToColumn!.filter((x) => x.id != item.id);
+    itemsFromColumn = itemsFromColumn!.filter((x) => x.id !== item.id);
+    itemsToColumn = itemsToColumn!.filter((x) => x.id !== item.id);
 
     itemsToColumn.push(item);
     item.columnId = toColumn.id;
@@ -613,6 +614,7 @@ class KanbanBoard extends React.Component<Props, State> {
       renderEmptyColumn,
       columnHeaderContainerStyle,
       columnHeaderTitleStyle,
+      isWithCountBadge,
     } = this.props;
     const { movingMode, boardState } = this.state;
 
@@ -623,7 +625,7 @@ class KanbanBoard extends React.Component<Props, State> {
         boardState={boardState}
         column={columnModel}
         renderCardItem={this.renderCard}
-        isWithCountBadge={true}
+        isWithCountBadge={isWithCountBadge}
         movingMode={movingMode}
         singleDataColumnAvailable={singleDataColumnAvailable}
         renderEmptyColumn={renderEmptyColumn}

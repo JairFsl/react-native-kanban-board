@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   FlatList,
@@ -28,6 +29,8 @@ export type ColumnExternalProps = {
    */
   renderEmptyColumn?: (item: ColumnModel) => JSX.Element;
 
+  isWithCountBadge?: boolean;
+
   /**
    * Custom style for the column header container.
    */
@@ -44,7 +47,6 @@ type Props = KanbanContext &
     boardState: BoardState;
     column: ColumnModel;
     renderCardItem: (item: CardModel) => JSX.Element;
-    isWithCountBadge: boolean;
     movingMode: boolean;
     singleDataColumnAvailable: boolean;
   };
@@ -116,7 +118,7 @@ export class Column extends React.Component<Props, State> {
     const {
       column,
       renderCardItem,
-      isWithCountBadge,
+      isWithCountBadge = false,
       singleDataColumnAvailable,
       movingMode,
       boardState,
@@ -132,33 +134,6 @@ export class Column extends React.Component<Props, State> {
       ? boardState.columnCardsMap.get(column.id)!
       : [];
     const noOfItems = items.length;
-
-    let columnContent = (
-      <FlatList
-        data={items}
-        ref={this.flatList}
-        onScroll={this.handleScroll}
-        scrollEventThrottle={0}
-        onMomentumScrollEnd={this.onMomentumScrollEnd}
-        onScrollEndDrag={this.onScrollEndDrag}
-        onViewableItemsChanged={this.handleChangeVisibleItems}
-        viewabilityConfig={this.viewabilityConfig}
-        renderItem={(item) => (
-          <View
-            key={item.item.id}
-            ref={(ref) => item.item.setRef(ref)}
-            onLayout={() => item.item.validateAndMeasure()}
-          >
-            {renderCardItem(item.item)}
-          </View>
-        )}
-        keyExtractor={(item) => item.id ?? ''}
-        scrollEnabled={!movingMode}
-        onContentSizeChange={this.onContentSizeChange}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={renderEmptyColumn ?? <EmptyColumn />}
-      />
-    );
 
     return (
       <View
@@ -185,7 +160,32 @@ export class Column extends React.Component<Props, State> {
           )}
         </View>
 
-        {columnContent}
+        <FlatList
+          data={items}
+          ref={this.flatList}
+          onScroll={this.handleScroll}
+          scrollEventThrottle={0}
+          onMomentumScrollEnd={this.onMomentumScrollEnd}
+          onScrollEndDrag={this.onScrollEndDrag}
+          onViewableItemsChanged={this.handleChangeVisibleItems}
+          viewabilityConfig={this.viewabilityConfig}
+          renderItem={(item) => (
+            <View
+              key={item.item.id}
+              ref={(ref) => item.item.setRef(ref)}
+              onLayout={() => item.item.validateAndMeasure()}
+            >
+              {renderCardItem(item.item)}
+            </View>
+          )}
+          keyExtractor={(item) => item.id ?? ''}
+          scrollEnabled={!movingMode}
+          onContentSizeChange={this.onContentSizeChange}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            renderEmptyColumn ? renderEmptyColumn(column) : <EmptyColumn />
+          }
+        />
       </View>
     );
   };

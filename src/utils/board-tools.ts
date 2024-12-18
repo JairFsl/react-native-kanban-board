@@ -14,10 +14,10 @@ export class BoardTools {
       ? [column]
       : Array.from(boardState.columnsMap.values());
 
-    columns.forEach((column) => {
-      column.measure();
+    columns.forEach((col) => {
+      col.measure();
 
-      const cards = boardState.columnCardsMap.get(column.id);
+      const cards = boardState.columnCardsMap.get(col.id);
       if (!cards) {
         return;
       }
@@ -82,7 +82,7 @@ export class BoardTools {
     y: number
   ): CardModel | undefined {
     const visibleItems = this.getVisibleCards(column, boardState);
-    if (!visibleItems || visibleItems.length == 0) {
+    if (!visibleItems || visibleItems.length === 0) {
       return undefined;
     }
 
@@ -97,7 +97,7 @@ export class BoardTools {
     y: number,
     dimensions: Rect | undefined
   ): CardModel | undefined {
-    if (items.length == 0) {
+    if (items.length === 0) {
       return undefined;
     }
     let item = items.find((i) => this.isItemWithinY(y, dimensions, i));
