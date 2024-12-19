@@ -1,25 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React from "react";
 import {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  StyleProp,
   StyleSheet,
-  Text,
   View,
-  TextStyle,
-  ViewStyle,
-} from 'react-native';
+} from "react-native";
 
-import EmptyColumn from './empty-column.component';
-import { ColumnModel } from '../../models/column-model';
-import { CardModel } from '../../models/card-model';
-import { Badge } from './badge.component';
-import { BoardTools } from '../../utils/board-tools';
-import { BoardState } from '../../models/board-state';
-import { COLUMN_MARGIN } from '../../board-consts';
-import { KanbanContext } from '../kanban-context.provider';
+import EmptyColumn from "./empty-column.component";
+import { ColumnModel } from "../../models/column-model";
+import { CardModel } from "../../models/card-model";
+import { BoardTools } from "../../utils/board-tools";
+import { BoardState } from "../../models/board-state";
+import { COLUMN_MARGIN } from "../../board-consts";
+import { KanbanContext } from "../kanban-context.provider";
+import ColumnHeader from "./header.component";
 
 export type ColumnExternalProps = {
   /**
@@ -29,17 +25,12 @@ export type ColumnExternalProps = {
    */
   renderEmptyColumn?: (item: ColumnModel) => JSX.Element;
 
-  isWithCountBadge?: boolean;
-
   /**
-   * Custom style for the column header container.
+   * Function that renders a custom component for the header of each column.
+   * @param {ColumnModel} item - The column model with all column's props.
+   * @returns {JSX.Element} - The JSX element representing the content for the custom header.
    */
-  columnHeaderContainerStyle?: StyleProp<ViewStyle>;
-
-  /**
-   * Custom style for the column header title text.
-   */
-  columnHeaderTitleStyle?: StyleProp<TextStyle>;
+  renderCustomHeader?: (item: ColumnModel) => JSX.Element;
 };
 
 type Props = KanbanContext &
@@ -118,22 +109,19 @@ export class Column extends React.PureComponent<Props, State> {
     const {
       column,
       renderCardItem,
-      isWithCountBadge = false,
       singleDataColumnAvailable,
       movingMode,
       boardState,
       oneColumnWidth,
       columnWidth,
 
+      renderCustomHeader,
       renderEmptyColumn,
-      columnHeaderContainerStyle,
-      columnHeaderTitleStyle,
     } = this.props;
 
     const items = boardState.columnCardsMap.has(column.id)
       ? boardState.columnCardsMap.get(column.id)!
       : [];
-    const noOfItems = items.length;
 
     return (
       <View
@@ -147,28 +135,11 @@ export class Column extends React.PureComponent<Props, State> {
           },
         ]}
       >
-        <View
-          style={[styles.columnHeaderContainer, columnHeaderContainerStyle]}
-        >
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-            <View
-              style={{
-                width: 19,
-                height: 19,
-                borderRadius: 19,
-                backgroundColor: '#FF9500',
-              }}
-            />
-            <Text style={[styles.columnHeaderTitle, columnHeaderTitleStyle]}>
-              {column.title}
-            </Text>
-          </View>
-          {isWithCountBadge && (
-            <View style={styles.columnHeaderRightContainer}>
-              <Badge value={noOfItems} />
-            </View>
-          )}
-        </View>
+        {renderCustomHeader ? (
+          renderCustomHeader(column)
+        ) : (
+          <ColumnHeader column={column} noOfItems={items.length} />
+        )}
 
         <FlatList
           data={items}
@@ -188,7 +159,7 @@ export class Column extends React.PureComponent<Props, State> {
               {renderCardItem(item.item)}
             </View>
           )}
-          keyExtractor={(item) => item.id ?? ''}
+          keyExtractor={(item) => item.id ?? ""}
           scrollEnabled={!movingMode}
           onContentSizeChange={this.onContentSizeChange}
           showsVerticalScrollIndicator={false}
@@ -206,18 +177,17 @@ export default Column;
 const styles = StyleSheet.create({
   columnContainer: {
     flex: 1,
-    backgroundColor: '#F2F2F2',
+    backgroundColor: "#F2F2F2",
     borderRadius: 15,
     padding: 8,
   },
   columnHeaderContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 20,
   },
   columnHeaderTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  columnHeaderRightContainer: {},
 });
