@@ -33,7 +33,8 @@ type State = {
 };
 
 export class ColumnSnapContainer extends React.PureComponent<Props, State> {
-  carouselRef: RefObject<ScrollView> = React.createRef<ScrollView>();
+  
+  carouselRef: RefObject<ScrollView | null> = React.createRef<ScrollView>();
 
   constructor(props: Props) {
     super(props);

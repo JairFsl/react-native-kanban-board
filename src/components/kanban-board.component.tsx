@@ -87,7 +87,7 @@ type State = {
 class KanbanBoard extends React.PureComponent<Props, State> {
   dragX: number = 0;
   dragY: number = 0;
-  carouselRef: RefObject<ColumnSnapContainer> =
+  carouselRef: RefObject<ColumnSnapContainer | null> =
     React.createRef<ColumnSnapContainer>();
   columnListViewsMap: Map<string, Column | null> = new Map<
     string,
@@ -585,7 +585,10 @@ class KanbanBoard extends React.PureComponent<Props, State> {
 
     return (
       <WrappedColumn
-        ref={(ref) => this.columnListViewsMap.set(columnModel.id, ref)}
+        ref={(ref) => {
+          if (!ref) return undefined;
+          this.columnListViewsMap.set(columnModel.id, ref);
+        }}
         key={columnModel.id}
         boardState={boardState}
         column={columnModel}
@@ -647,7 +650,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
 const myContext = ReactTimeout(
-  withKanbanContext(KanbanBoard)
+  withKanbanContext(KanbanBoard) as any
 ) as unknown as React.FC<KanbanBoardProps>;
 export default myContext;

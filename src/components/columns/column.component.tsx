@@ -46,7 +46,7 @@ type State = {};
 
 export class Column extends React.PureComponent<Props, State> {
   scrollingDown: boolean = false;
-  flatList: React.RefObject<FlatList<CardModel>> =
+  flatList: React.RefObject<FlatList<CardModel> | null> =
     React.createRef<FlatList<CardModel>>();
   viewabilityConfig: any = {
     itemVisiblePercentThreshold: 1,
