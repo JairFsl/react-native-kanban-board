@@ -226,6 +226,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
       boardState,
       event.nativeEvent.absoluteX
     );
+
     if (!column) {
       return;
     }
@@ -235,23 +236,24 @@ class KanbanBoard extends React.PureComponent<Props, State> {
       this.state.boardState,
       event.nativeEvent.absoluteY
     );
-    if (!item || !item.dimensions) {
+
+    if (!item || !item.dimensions || !item.columnId) {
       return;
     }
 
-    const draggedItemWidth = item.dimensions!.width;
-    const draggedItemHeight = item.dimensions!.height;
+    const draggedItemWidth = item.dimensions.width;
+    const draggedItemHeight = item.dimensions.height;
 
     this.state.pan.setValue({
       x: this.state.startingX - draggedItemWidth / 2 + RFValue(30),
       y: this.state.startingY - draggedItemHeight / 2 - RFValue(120),
     });
 
-    item!.hide(); // hide this item so we can display the 'dragged' item over it
+    item.hide(); // hide this item so we can display the 'dragged' item over it
     this.setState({
       movingMode: true,
       draggedItem: item,
-      srcColumnId: item!.columnId,
+      srcColumnId: item.columnId,
       startingX: event.nativeEvent.absoluteX,
       startingY: event.nativeEvent.absoluteY,
       draggedItemWidth: draggedItemWidth,
@@ -324,6 +326,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
 
       const targetColumn = BoardTools.findColumn(boardState, this.dragX);
       if (targetColumn) {
+        //IF NEED MOVE Y ADD this.dragY to the function
         this.moveCard(draggedItem!, this.dragX, targetColumn);
         const scrollResult = BoardTools.getScrollingDirection(
           targetColumn,
