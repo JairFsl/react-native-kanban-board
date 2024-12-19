@@ -1,5 +1,5 @@
 {
-  "name": "@intechnity/react-native-kanban-board",
+  "name": "react-native-kanban-board",
   "version": "0.1.0",
   "description": "test",
   "main": "lib/commonjs/index",
@@ -38,16 +38,8 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/Intechnity-com/react-native-kanban-board",
-  "author": "Denis Trzeciok <denis.trzeciok@intechnity.com> (https://intechnity.com)",
+  "repository": "https://github.com/JairFsl/react-native-kanban-board",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Intechnity-com/react-native-kanban-board/issues"
-  },
-  "homepage": "https://github.com/Intechnity-com/react-native-kanban-board#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
     "@evilmartians/lefthook": "^1.2.2",
