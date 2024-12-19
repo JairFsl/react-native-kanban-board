@@ -22,7 +22,7 @@ type Props = KanbanContext & {
   renderItem: (
     item: ColumnModel,
     singleDataColumnAvailable: boolean
-  ) => JSX.Element;
+  ) => React.ReactNode;
   sliderWidth: number;
   scrollEnabled: boolean;
 };

@@ -24,9 +24,9 @@ export type CardExternalProps = {
   /**
    * Function that renders the content of the card.
    * @param {CardModel} model - The card model to render the content for.
-   * @returns {JSX.Element | null} - The JSX element representing the card content, or null to render the default content.
+   * @returns {React.ReactNode | null} - The JSX element representing the card content, or null to render the default content.
    */
-  renderCardContent?(model: CardModel): JSX.Element | null;
+  renderCardContent?(model: CardModel): React.ReactNode | null;
 
   /**
    * Custom style for the card container.

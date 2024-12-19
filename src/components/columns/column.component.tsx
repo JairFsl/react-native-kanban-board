@@ -21,23 +21,23 @@ export type ColumnExternalProps = {
   /**
    * Function that renders the content for an empty column.
    * @param {ColumnModel} item - The column model representing the empty column.
-   * @returns {JSX.Element} - The JSX element representing the content for the empty column.
+   * @returns {React.ReactElement} - The JSX element representing the content for the empty column.
    */
-  renderEmptyColumn?: (item: ColumnModel) => JSX.Element;
+  renderEmptyColumn?: (item: ColumnModel) => React.ReactElement;
 
   /**
    * Function that renders a custom component for the header of each column.
    * @param {ColumnModel} item - The column model with all column's props.
-   * @returns {JSX.Element} - The JSX element representing the content for the custom header.
+   * @returns {React.ReactNode} - The JSX element representing the content for the custom header.
    */
-  renderCustomHeader?: (item: ColumnModel) => JSX.Element;
+  renderCustomHeader?: (item: ColumnModel) => React.ReactNode;
 };
 
 type Props = KanbanContext &
   ColumnExternalProps & {
     boardState: BoardState;
     column: ColumnModel;
-    renderCardItem: (item: CardModel) => JSX.Element;
+    renderCardItem: (item: CardModel) => React.ReactNode;
     movingMode: boolean;
     singleDataColumnAvailable: boolean;
   };

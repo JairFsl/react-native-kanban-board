@@ -17,26 +17,34 @@ react-native-gesture-handler must be also installed: https://www.npmjs.com/packa
 Import the necessary components and types:
 
 ```tsx
-import { KanbanBoard, ColumnModel, CardModel } from '@intechnity/react-native-kanban-board';
+import {
+  KanbanBoard,
+  ColumnModel,
+  CardModel,
+} from "@intechnity/react-native-kanban-board";
 ```
 
 Define the columns and cards:
 
 ```tsx
-const columns = [new ColumnModel('new', 'New', 1), new ColumnModel('inProgress', 'In Progress', 2), new ColumnModel('ready', 'Ready', 3)];
+const columns = [
+  new ColumnModel("new", "New", 1),
+  new ColumnModel("inProgress", "In Progress", 2),
+  new ColumnModel("ready", "Ready", 3),
+];
 
 const cards = [
   new CardModel(
-    'card1',
-    'new',
-    '1st Card',
-    'Example card',
-    'test description',
+    "card1",
+    "new",
+    "1st Card",
+    "Example card",
+    "test description",
     [
       {
-        text: 'Tag1',
-        backgroundColor: '#00FF00',
-        textColor: '#000000',
+        text: "Tag1",
+        backgroundColor: "#00FF00",
+        textColor: "#000000",
       },
     ],
     null,
@@ -49,7 +57,12 @@ const cards = [
 Create event handlers:
 
 ```ts
-const onCardDragEnd = (srcColumn: ColumnModel, destColumn: ColumnModel, item: CardModel, targetIdx: number) => {
+const onCardDragEnd = (
+  srcColumn: ColumnModel,
+  destColumn: ColumnModel,
+  item: CardModel,
+  targetIdx: number
+) => {
   // Handle card drag and drop
 };
 
@@ -61,7 +74,12 @@ const onCardPress = (item: CardModel) => {
 Render the Kanban Board component:
 
 ```tsx
-<KanbanBoard columns={columns} cards={cards} onDragEnd={onCardDragEnd} onCardPress={onCardPress} />
+<KanbanBoard
+  columns={columns}
+  cards={cards}
+  onDragEnd={onCardDragEnd}
+  onCardPress={onCardPress}
+/>
 ```
 
 ## API
@@ -85,10 +103,10 @@ Render the Kanban Board component:
   - `item: CardModel` - The card that was dragged and dropped.
   - `targetIdx: number` - The index at which the card was dropped within the destination column.
 
-- `renderCardContent?(model: CardModel): JSX.Element | null`\
+- `renderCardContent?(model: CardModel): React.ReactNode | null`\
   Optional custom renderer for the card content.
 
-- `renderEmptyColumn?: (item: ColumnModel) => JSX.Element`\
+- `renderEmptyColumn?: (item: ColumnModel) => React.ReactElement`\
   Optional custom renderer for an empty column.
 
 - `cardContainerStyle?: StyleProp<ViewStyle>`\
