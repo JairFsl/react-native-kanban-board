@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { RefObject } from 'react';
+import React, { RefObject } from "react";
 import {
   Animated,
   StyleSheet,
@@ -7,7 +7,7 @@ import {
   LayoutChangeEvent,
   StyleProp,
   ViewStyle,
-} from 'react-native';
+} from "react-native";
 import {
   GestureEvent,
   GestureHandlerRootView,
@@ -15,26 +15,26 @@ import {
   LongPressGestureHandler,
   LongPressGestureHandlerEventPayload,
   State as rnState,
-} from 'react-native-gesture-handler';
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout';
+} from "react-native-gesture-handler";
+import ReactTimeout, { ReactTimeoutProps } from "react-timeout";
 
-import { CardModel } from '../models/card-model';
-import { ColumnModel } from '../models/column-model';
+import { CardModel } from "../models/card-model";
+import { ColumnModel } from "../models/column-model";
 import WrappedColumnsSnapContainer, {
   ColumnSnapContainer,
-} from './columns/columns-carousel-container.component';
-import { BoardState } from '../models/board-state';
-import { BoardTools } from '../utils/board-tools';
-import { logError } from '../utils/logger';
-import { MAX_DEG, MAX_RANGE } from '../board-consts';
-import Card, { CardExternalProps } from './cards/card.component';
+} from "./columns/columns-carousel-container.component";
+import { BoardState } from "../models/board-state";
+import { BoardTools } from "../utils/board-tools";
+import { logError } from "../utils/logger";
+import { MAX_DEG, MAX_RANGE } from "../board-consts";
+import Card, { CardExternalProps } from "./cards/card.component";
 import WrappedColumn, {
   Column,
   ColumnExternalProps,
-} from './columns/column.component';
-import { KanbanContext, withKanbanContext } from './kanban-context.provider';
-import { moveElementToNewIndex } from '../utils/array-tools';
-import { RFValue } from 'react-native-responsive-fontsize';
+} from "./columns/column.component";
+import { KanbanContext, withKanbanContext } from "./kanban-context.provider";
+import { moveElementToNewIndex } from "../utils/array-tools";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export type KanbanBoardProps = CardExternalProps &
   ColumnExternalProps & {
@@ -239,8 +239,8 @@ class KanbanBoard extends React.PureComponent<Props, State> {
       return;
     }
 
-    const draggedItemWidth = item!.dimensions!.width;
-    const draggedItemHeight = item!.dimensions!.height;
+    const draggedItemWidth = item.dimensions!.width;
+    const draggedItemHeight = item.dimensions!.height;
 
     this.state.pan.setValue({
       x: this.state.startingX - draggedItemWidth / 2 + RFValue(30),
@@ -295,18 +295,11 @@ class KanbanBoard extends React.PureComponent<Props, State> {
           RFValue(120),
       });
 
-      const snapMargin = 50;
+      const snapMargin = RFValue(50);
       const snapAfterTimeout = 500;
 
-      let shouldSnapPrevOrScrollLeft = false;
-      let shouldSnapNextOrScrollRight = false;
-
-      if (this.dragX < snapMargin) {
-        shouldSnapPrevOrScrollLeft = true;
-      }
-      if (this.dragX > deviceWidth - snapMargin) {
-        shouldSnapNextOrScrollRight = true;
-      }
+      let shouldSnapPrevOrScrollLeft = this.dragX < snapMargin;
+      let shouldSnapNextOrScrollRight = this.dragX > deviceWidth - snapMargin;
 
       if (
         !shouldSnapPrevOrScrollLeft &&
@@ -331,7 +324,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
 
       const targetColumn = BoardTools.findColumn(boardState, this.dragX);
       if (targetColumn) {
-        this.moveCard(draggedItem!, this.dragX, this.dragY, targetColumn);
+        this.moveCard(draggedItem!, this.dragX, targetColumn);
         const scrollResult = BoardTools.getScrollingDirection(
           targetColumn,
           this.dragY
@@ -342,14 +335,14 @@ class KanbanBoard extends React.PureComponent<Props, State> {
         }
       }
     } catch (error) {
-      logError('onGestureEvent: ' + error);
+      logError("onGestureEvent: " + error);
     }
   };
 
   onDragEnd() {
     this.setState({ movingMode: false });
 
-    const { draggedItem, pan, srcColumnId } = this.state;
+    const { draggedItem, srcColumnId } = this.state;
     const { onDragEnd } = this.props;
 
     if (!draggedItem) {
@@ -360,7 +353,6 @@ class KanbanBoard extends React.PureComponent<Props, State> {
       draggedItem.show();
 
       const destColumnId = draggedItem.columnId;
-      pan.setValue({ x: 0, y: 0 });
       this.setState({ startingX: 0, startingY: 0 });
 
       var srcColumn = this.state.boardState.columnsMap.get(srcColumnId!)!;
@@ -381,16 +373,11 @@ class KanbanBoard extends React.PureComponent<Props, State> {
         BoardTools.validateAndMeasureBoard(this.state.boardState);
       });
     } catch (error) {
-      logError('onDragEnd: ' + error);
+      logError("onDragEnd: " + error);
     }
   }
 
-  moveCard(
-    draggedItem: CardModel,
-    _x: number,
-    y: number,
-    targetColumn: ColumnModel
-  ) {
+  moveCard(draggedItem: CardModel, _x: number, targetColumn: ColumnModel) {
     try {
       const columns = this.state.boardState.columnsMap;
       const fromColumn = columns.get(draggedItem.columnId);
@@ -399,33 +386,12 @@ class KanbanBoard extends React.PureComponent<Props, State> {
         return;
       }
 
-      const targetItems =
-        this.state.boardState.columnCardsMap.get(targetColumn.id) ?? [];
-      if (targetItems.find((x) => x.isInvalidated)) {
-        return;
-      }
-
       if (targetColumn.id !== fromColumn.id) {
         this.moveToOtherColumn(draggedItem, fromColumn, targetColumn);
         return;
       }
-
-      const itemAtPosition = BoardTools.getCardAtPosition(
-        targetItems,
-        y,
-        draggedItem.dimensions
-      );
-      if (!itemAtPosition) {
-        return;
-      }
-
-      if (draggedItem.id === itemAtPosition.id) {
-        return;
-      }
-
-      this.moveCardToPosition(draggedItem, itemAtPosition, targetColumn);
     } catch (error) {
-      logError('board actions error:  ' + error);
+      logError("board actions error:  " + error);
     }
   }
 
@@ -445,15 +411,13 @@ class KanbanBoard extends React.PureComponent<Props, State> {
     var itemsToColumn = newColumnCardsMap.get(toColumn.id);
 
     itemsFromColumn = itemsFromColumn!.filter((x) => x.id !== item.id);
-    itemsToColumn = itemsToColumn!.filter((x) => x.id !== item.id);
 
-    itemsToColumn.push(item);
+    itemsToColumn!.push(item);
     item.columnId = toColumn.id;
+    item.invalidate();
 
     newColumnCardsMap.set(fromColumn.id, itemsFromColumn);
-    newColumnCardsMap.set(toColumn.id, itemsToColumn);
-
-    item.invalidate();
+    newColumnCardsMap.set(toColumn.id, itemsToColumn!);
 
     this.setState({
       boardState: {
@@ -558,13 +522,13 @@ class KanbanBoard extends React.PureComponent<Props, State> {
 
     const interpolatedRotateAnimation = rotate.interpolate({
       inputRange: [-MAX_RANGE, 0, MAX_RANGE],
-      outputRange: [`-${MAX_DEG}deg`, '0deg', `${MAX_DEG}deg`],
+      outputRange: [`-${MAX_DEG}deg`, "0deg", `${MAX_DEG}deg`],
     });
 
     return (
       <Animated.View
         style={{
-          position: 'absolute',
+          position: "absolute",
           left: startingX,
           top: startingY,
           width: cardWidth - 16,
@@ -616,12 +580,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
     columnModel: ColumnModel,
     singleDataColumnAvailable: boolean
   ) => {
-    const {
-      renderEmptyColumn,
-      columnHeaderContainerStyle,
-      columnHeaderTitleStyle,
-      isWithCountBadge,
-    } = this.props;
+    const { renderCustomHeader, renderEmptyColumn } = this.props;
     const { movingMode, boardState } = this.state;
 
     return (
@@ -630,13 +589,11 @@ class KanbanBoard extends React.PureComponent<Props, State> {
         key={columnModel.id}
         boardState={boardState}
         column={columnModel}
+        renderCustomHeader={renderCustomHeader}
         renderCardItem={this.renderCard}
-        isWithCountBadge={isWithCountBadge}
         movingMode={movingMode}
         singleDataColumnAvailable={singleDataColumnAvailable}
         renderEmptyColumn={renderEmptyColumn}
-        columnHeaderContainerStyle={columnHeaderContainerStyle}
-        columnHeaderTitleStyle={columnHeaderTitleStyle}
         deviceWidth={this.props.deviceWidth}
         isLandscape={this.props.isLandscape}
         columnWidth={this.props.columnWidth}
