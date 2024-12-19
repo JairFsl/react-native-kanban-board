@@ -647,5 +647,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export default ReactTimeout(withKanbanContext(KanbanBoard));
+const myContext = ReactTimeout(
+  withKanbanContext(KanbanBoard)
+) as unknown as React.FC<KanbanBoardProps>;
+export default myContext;
