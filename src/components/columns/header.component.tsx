@@ -36,9 +36,10 @@ export default class ColumnHeader extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginBottom: 10,
   },
   columnHeaderContainer: {
     flexDirection: "row",
