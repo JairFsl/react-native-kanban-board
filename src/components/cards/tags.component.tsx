@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   FlatList,
   StyleSheet,
@@ -7,9 +7,9 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
-} from 'react-native';
+} from "react-native";
 
-import { Tag } from '../../models/tag';
+import { Tag } from "../../models/tag";
 
 type Props = {
   items: Tag[];
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginRight: 8,
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
   },
   tagText: {

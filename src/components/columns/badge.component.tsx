@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
-} from 'react-native';
+} from "react-native";
 
 type Props = {
   value: string | number;
@@ -19,7 +19,7 @@ export class Badge extends React.PureComponent<Props> {
   render() {
     const { value, backgroundColor, badgeStyle, textStyle } = this.props;
 
-    const color = backgroundColor || '#000';
+    const color = backgroundColor || "#000";
 
     return (
       <View
@@ -39,12 +39,12 @@ const styles = StyleSheet.create({
   badge: {
     height: 24,
     borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 10,
   },
   text: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 12,
   },
 });

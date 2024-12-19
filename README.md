@@ -23,32 +23,27 @@ import { KanbanBoard, ColumnModel, CardModel } from '@intechnity/react-native-ka
 Define the columns and cards:
 
 ```tsx
-const columns = [
-  new ColumnModel("new", "New", 1),
-  new ColumnModel("inProgress", "In Progress", 2),
-  new ColumnModel("ready", "Ready", 3),
-];
+const columns = [new ColumnModel('new', 'New', 1), new ColumnModel('inProgress', 'In Progress', 2), new ColumnModel('ready', 'Ready', 3)];
 
 const cards = [
   new CardModel(
-    "card1",
-    "new",
-    "1st Card",
-    "Example card",
-    "test description",
+    'card1',
+    'new',
+    '1st Card',
+    'Example card',
+    'test description',
     [
       {
-        text: "Tag1",
-        backgroundColor: "#00FF00",
-        textColor: "#000000"
-      }
+        text: 'Tag1',
+        backgroundColor: '#00FF00',
+        textColor: '#000000',
+      },
     ],
     null,
     1
   ),
   // ... add more cards ...
 ];
-
 ```
 
 Create event handlers:
@@ -61,19 +56,12 @@ const onCardDragEnd = (srcColumn: ColumnModel, destColumn: ColumnModel, item: Ca
 const onCardPress = (item: CardModel) => {
   // Handle card press
 };
-
 ```
 
 Render the Kanban Board component:
 
 ```tsx
-<KanbanBoard
-  columns={columns}
-  cards={cards}
-  onDragEnd={onCardDragEnd}
-  onCardPress={onCardPress}
-/>
-
+<KanbanBoard columns={columns} cards={cards} onDragEnd={onCardDragEnd} onCardPress={onCardPress} />
 ```
 
 ## API
@@ -91,6 +79,7 @@ Render the Kanban Board component:
 
 - `onDragEnd: (srcColumn: ColumnModel, destColumn: ColumnModel, item: CardModel, targetIdx: number) => void`\
   Callback function invoked when a card is dragged and dropped onto another column. It receives the following parameters:
+
   - `srcColumn: ColumnModel` - The source column from which the card was dragged.
   - `destColumn: ColumnModel` - The destination column where the card was dropped.
   - `item: CardModel` - The card that was dragged and dropped.
@@ -120,9 +109,7 @@ Render the Kanban Board component:
 - `columnHeaderTitleStyle?: StyleProp<TextStyle>`\
   Custom style for the column header title.
 
-
 **Note:** `StyleProp<ViewStyle>` and `StyleProp<TextStyle>` are types from the `react-native` package and are used to define custom styles for components.
-
 
 ## Contributing
 
@@ -132,9 +119,10 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 
 MIT
 
-------
+---
 
 ## TODO
+
 - Render custom column
 - Input margin/paddings
 - Overhaul of KanbanContext Provider

@@ -1,10 +1,10 @@
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, Platform } from "react-native";
 
 export function isTablet(): boolean {
-  const { width, height } = Dimensions.get('window');
+  const { width, height } = Dimensions.get("window");
   const aspectRatio = height / width;
 
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === "ios") {
     const tabletAspectRatio = 1.6;
     return aspectRatio < tabletAspectRatio;
   } else {

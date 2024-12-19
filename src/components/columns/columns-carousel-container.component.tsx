@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import React, { RefObject } from "react";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -6,12 +6,12 @@ import {
   ScrollView,
   StyleSheet,
   View,
-} from 'react-native';
+} from "react-native";
 
-import { COLUMN_MARGIN } from '../../board-consts';
-import { Dot } from './dot.component';
-import { KanbanContext } from '../kanban-context.provider';
-import { ColumnModel } from '../../models/column-model';
+import { COLUMN_MARGIN } from "../../board-consts";
+import { Dot } from "./dot.component";
+import { KanbanContext } from "../kanban-context.provider";
+import { ColumnModel } from "../../models/column-model";
 
 const INITIAL_ACTIVE_ITEM = 0;
 
@@ -105,7 +105,7 @@ export class ColumnSnapContainer extends React.PureComponent<Props, State> {
     const offsetX = index * itemWidth;
     this.carouselRef.current?.scrollTo({ x: offsetX, y: 0, animated: true });
 
-    if (Platform.OS === 'android') {
+    if (Platform.OS === "android") {
       this.onScrollEnd(offsetX); // BUG on Android: onMomentumScrollEnd won't be invoked if scrolled programmatically
     }
   }
@@ -114,7 +114,7 @@ export class ColumnSnapContainer extends React.PureComponent<Props, State> {
     offsetX = Math.round(offsetX);
     this.carouselRef.current?.scrollTo({ x: offsetX, y: 0, animated: true });
 
-    if (Platform.OS === 'android') {
+    if (Platform.OS === "android") {
       this.onScrollEnd(offsetX); // BUG on Android: onMomentumScrollEnd won't be invoked if scrolled programmatically
     }
   }
@@ -171,7 +171,7 @@ export class ColumnSnapContainer extends React.PureComponent<Props, State> {
               <Dot
                 key={`carousel-pos-indicator-${index}`}
                 color={
-                  oneColumnActiveItemIndex === index ? '#000000' : '#DDDDDD'
+                  oneColumnActiveItemIndex === index ? "#000000" : "#DDDDDD"
                 }
                 style={styles.positionIndicator}
               />
@@ -190,14 +190,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   contentContainer: {
     paddingVertical: 8,
   },
   positionIndicatorContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     height: 20,
   },
   positionIndicator: {

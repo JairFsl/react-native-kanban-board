@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React from "react";
 import {
   TouchableOpacity,
   StyleProp,
@@ -8,11 +8,11 @@ import {
   View,
   ViewStyle,
   TextStyle,
-} from 'react-native';
+} from "react-native";
 
-import { CardModel } from '../../models/card-model';
-import { Tags } from './tags.component';
-import { KanbanContext, withKanbanContext } from '../kanban-context.provider';
+import { CardModel } from "../../models/card-model";
+import { Tags } from "./tags.component";
+import { KanbanContext, withKanbanContext } from "../kanban-context.provider";
 
 export type CardExternalProps = {
   /**
@@ -116,11 +116,11 @@ export default withKanbanContext(Card);
 
 const styles = StyleSheet.create({
   container: {
-    borderColor: '#E3E3E3',
+    borderColor: "#E3E3E3",
     borderWidth: 1,
     borderRadius: 8,
     padding: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     marginBottom: 16,
     elevation: 3,
   },
@@ -131,13 +131,13 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   cardTitleText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   cardSubtitleText: {},
   cardContentContainer: {
     marginBottom: 16,
   },
   cardContentText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });

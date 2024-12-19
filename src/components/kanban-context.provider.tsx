@@ -1,8 +1,8 @@
-import React, { ReactNode } from 'react';
-import { Dimensions, EmitterSubscription } from 'react-native';
+import React, { ReactNode } from "react";
+import { Dimensions, EmitterSubscription } from "react-native";
 
-import { PADDING } from '../board-consts';
-import { isTablet } from '../utils/device-utils';
+import { PADDING } from "../board-consts";
+import { isTablet } from "../utils/device-utils";
 
 export type KanbanContext = {
   deviceWidth: number;
@@ -14,7 +14,7 @@ export type KanbanContext = {
 };
 
 function getKanbanContext(): KanbanContext {
-  const screenSize = Dimensions.get('window');
+  const screenSize = Dimensions.get("window");
 
   const deviceWidth = screenSize.width;
   const isLandscape = screenSize.width > screenSize.height;
@@ -64,7 +64,7 @@ export class KanbanContextProvider extends React.PureComponent<
 
   componentDidMount() {
     this.resizeSubscription = Dimensions.addEventListener(
-      'change',
+      "change",
       this.handleOrientationChange
     );
   }

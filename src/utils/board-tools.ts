@@ -1,7 +1,7 @@
-import { ColumnModel } from '../models/column-model';
-import { BoardState } from '../models/board-state';
-import { CardModel } from '../models/card-model';
-import { Rect } from '../models/rect';
+import { ColumnModel } from "../models/column-model";
+import { BoardState } from "../models/board-state";
+import { CardModel } from "../models/card-model";
+import { Rect } from "../models/rect";
 
 export class BoardTools {
   static SCROLL_TRESHOLD = 100;

@@ -1,6 +1,6 @@
-import { View } from 'react-native';
-import { Rect } from './rect';
-import { Tag } from './tag';
+import { View } from "react-native";
+import { Rect } from "./rect";
+import { Tag } from "./tag";
 
 export class CardModel {
   private _ref: View | null = null;

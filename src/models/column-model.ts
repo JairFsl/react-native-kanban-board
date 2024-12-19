@@ -1,5 +1,5 @@
-import { View } from 'react-native';
-import { Rect } from './rect';
+import { View } from "react-native";
+import { Rect } from "./rect";
 
 export class ColumnModel {
   private _ref: View | null = null;

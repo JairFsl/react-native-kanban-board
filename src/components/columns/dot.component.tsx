@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import React from "react";
+import { StyleProp, View, ViewStyle } from "react-native";
 
 type Props = {
   color: string;
