@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import {
   GestureEvent,
-  GestureHandlerRootView,
   HandlerStateChangeEvent,
   LongPressGestureHandler,
   LongPressGestureHandlerEventPayload,
@@ -617,7 +616,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
     const columns = Array.from(boardState.columnsMap.values());
 
     return (
-      <GestureHandlerRootView style={[styles.boardContainer, style]}>
+      <View style={[styles.boardContainer, style]}>
         <LongPressGestureHandler
           maxDist={Number.MAX_SAFE_INTEGER}
           onGestureEvent={this.onGestureEvent}
@@ -643,7 +642,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
             {this.renderDragCard()}
           </View>
         </LongPressGestureHandler>
-      </GestureHandlerRootView>
+      </View>
     );
   }
 }
