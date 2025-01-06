@@ -11,7 +11,6 @@ import {
 } from "react-native";
 
 import { CardModel } from "../../models/card-model";
-import { Tags } from "./tags.component";
 import { KanbanContext, withKanbanContext } from "../kanban-context.provider";
 
 export type CardExternalProps = {
@@ -98,12 +97,9 @@ class Card extends React.PureComponent<Props> {
               </View>
               <View style={styles.cardContentContainer}>
                 <Text style={[cardContentTextStyle, styles.cardContentText]}>
-                  {model.description}
+                  {model.contato}
                 </Text>
               </View>
-              {model.tags && model.tags.length > 0 && (
-                <Tags items={model.tags} />
-              )}
             </React.Fragment>
           )}
         </TouchableOpacity>

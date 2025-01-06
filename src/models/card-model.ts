@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import { Rect } from "./rect";
-import { Tag } from "./tag";
 
 export class CardModel {
   private _ref: View | null = null;
@@ -13,10 +12,14 @@ export class CardModel {
   id: string | undefined;
   columnId: string;
   title: string;
+  contato: string;
+  placa: string;
+  anoModelo: string;
+  modelo: string;
   subtitle: string;
-  description: string | undefined;
-  tags: Tag[];
-  item: any;
+  data: string;
+  hora: string;
+  status: string;
   sortOrder: number;
 
   get ref(): View | null {
@@ -48,29 +51,41 @@ export class CardModel {
    * @param {string | undefined} id - The ID of the card.
    * @param {string} columnId - The ID of the column the card belongs to.
    * @param {string} title - The title of the card.
+   * @param {string} contato - The subtitle of the card.
+   * @param {string} placa - The subtitle of the card.
+   * @param {string} anoModelo - The subtitle of the card.
+   * @param {string} modelo - The subtitle of the card.
    * @param {string} subtitle - The subtitle of the card.
-   * @param {string | undefined} description - The description of the card (optional).
-   * @param {Tag[]} tags - The tags associated with the card.
-   * @param {*} item - The item associated with the card.
+   * @param {string} data - The subtitle of the card.
+   * @param {string} hora - The subtitle of the card.
+   * @param {string} status - The subtitle of the card.
    * @param {number} sortOrder - The sort order of the card within its column.
    */
   constructor(
     id: string | undefined,
     columnId: string,
     title: string,
+    contato: string,
+    placa: string,
+    anoModelo: string,
+    modelo: string,
     subtitle: string,
-    description: string | undefined,
-    tags: Tag[],
-    item: any,
+    data: string,
+    hora: string,
+    status: string,
     sortOrder: number
   ) {
     this.id = id;
     this.columnId = columnId;
     this.title = title;
+    this.contato = contato;
+    this.placa = placa;
+    this.anoModelo = anoModelo;
+    this.modelo = modelo;
     this.subtitle = subtitle;
-    this.description = description;
-    this.tags = tags;
-    this.item = item;
+    this.data = data;
+    this.hora = hora;
+    this.status = status;
     this.sortOrder = sortOrder;
   }
 
