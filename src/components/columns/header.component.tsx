@@ -20,7 +20,7 @@ export default class ColumnHeader extends React.PureComponent<Props> {
               width: 19,
               height: 19,
               borderRadius: 19,
-              backgroundColor: "#FF9500",
+              backgroundColor: column.color ?? "#FF9500",
             }}
           />
           <Text style={styles.columnHeaderTitle}>{column.title}</Text>

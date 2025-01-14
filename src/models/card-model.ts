@@ -18,7 +18,6 @@ export class CardModel {
   modelo: string;
   subtitle: string;
   data: string;
-  hora: string;
   status: string;
   sortOrder: number;
 
@@ -57,7 +56,6 @@ export class CardModel {
    * @param {string} modelo - The subtitle of the card.
    * @param {string} subtitle - The subtitle of the card.
    * @param {string} data - The subtitle of the card.
-   * @param {string} hora - The subtitle of the card.
    * @param {string} status - The subtitle of the card.
    * @param {number} sortOrder - The sort order of the card within its column.
    */
@@ -71,7 +69,6 @@ export class CardModel {
     modelo: string,
     subtitle: string,
     data: string,
-    hora: string,
     status: string,
     sortOrder: number
   ) {
@@ -84,7 +81,6 @@ export class CardModel {
     this.modelo = modelo;
     this.subtitle = subtitle;
     this.data = data;
-    this.hora = hora;
     this.status = status;
     this.sortOrder = sortOrder;
   }

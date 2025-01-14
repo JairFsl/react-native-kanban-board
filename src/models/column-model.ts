@@ -10,6 +10,7 @@ export class ColumnModel {
 
   id: string;
   title: string;
+  color: string;
   value: any;
 
   get dimensions(): Rect | undefined {
@@ -32,11 +33,13 @@ export class ColumnModel {
    * Creates a new ColumnModel instance.
    * @param {string} id - The ID of the column.
    * @param {string} title - The title of the column.
+   * @param {string} color - The color of the circle aside from the Title.
    * @param {*} value - The value associated with the column.
    */
-  constructor(id: string, title: string, value: any) {
+  constructor(id: string, title: string, color: string, value: any) {
     this.id = id;
     this.title = title;
+    this.color = color;
     this.value = value;
   }
 
