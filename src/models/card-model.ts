@@ -9,8 +9,9 @@ export class CardModel {
   private _isRenderedAndVisible: boolean = false;
   private _invalidated: boolean = false;
 
-  id: string | undefined;
+  id: string;
   columnId: string;
+  columnName: string;
   title: string;
   contato: string;
   placa: string;
@@ -47,8 +48,9 @@ export class CardModel {
 
   /**
    * Creates a new CardModel instance.
-   * @param {string | undefined} id - The ID of the card.
+   * @param {string} id - The ID of the card.
    * @param {string} columnId - The ID of the column the card belongs to.
+   * @param {string} columnName - The name of the column the card belongs to.
    * @param {string} title - The title of the card.
    * @param {string} contato - The subtitle of the card.
    * @param {string} placa - The subtitle of the card.
@@ -60,8 +62,9 @@ export class CardModel {
    * @param {number} sortOrder - The sort order of the card within its column.
    */
   constructor(
-    id: string | undefined,
+    id: string,
     columnId: string,
+    columnName: string,
     title: string,
     contato: string,
     placa: string,
@@ -74,6 +77,7 @@ export class CardModel {
   ) {
     this.id = id;
     this.columnId = columnId;
+    this.columnName = columnName;
     this.title = title;
     this.contato = contato;
     this.placa = placa;
