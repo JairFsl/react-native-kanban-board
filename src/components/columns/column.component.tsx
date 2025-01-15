@@ -30,7 +30,10 @@ export type ColumnExternalProps = {
    * @param {ColumnModel} item - The column model with all column's props.
    * @returns {React.ReactNode} - The JSX element representing the content for the custom header.
    */
-  renderCustomHeader?: (item: ColumnModel) => React.ReactNode;
+  renderCustomHeader?: (
+    item: ColumnModel,
+    numOfCards: number
+  ) => React.ReactNode;
 };
 
 type Props = KanbanContext &
@@ -136,7 +139,7 @@ export class Column extends React.PureComponent<Props, State> {
         ]}
       >
         {renderCustomHeader ? (
-          renderCustomHeader(column)
+          renderCustomHeader(column, items.length)
         ) : (
           <ColumnHeader column={column} noOfItems={items.length} />
         )}
