@@ -148,7 +148,10 @@ export class Column extends React.PureComponent<Props, State> {
           data={items}
           ref={this.flatList}
           onScroll={this.handleScroll}
+          decelerationRate={"fast"}
+          disableIntervalMomentum={true}
           scrollEventThrottle={0}
+          onEndReachedThreshold={0.2}
           onMomentumScrollEnd={this.onMomentumScrollEnd}
           onScrollEndDrag={this.onScrollEndDrag}
           onViewableItemsChanged={this.handleChangeVisibleItems}
@@ -162,7 +165,7 @@ export class Column extends React.PureComponent<Props, State> {
               {renderCardItem(item.item)}
             </View>
           )}
-          keyExtractor={(item) => item.id ?? ""}
+          keyExtractor={(item, index) => item.id ?? `item-index-${index}`}
           scrollEnabled={!movingMode}
           onContentSizeChange={this.onContentSizeChange}
           showsVerticalScrollIndicator={false}
