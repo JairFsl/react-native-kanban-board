@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#FFFFFF",
     marginBottom: 16,
-    elevation: 3,
   },
   cardHeaderContainer: {
     marginBottom: 16,
