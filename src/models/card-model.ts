@@ -1,22 +1,6 @@
 import { View } from "react-native";
 import { Rect } from "./rect";
 
-export type CardModelPrivate = {
-  _ref: View | null;
-  _hidden: boolean;
-  _rect:
-    | {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-      }
-    | undefined;
-  _isLocked: boolean;
-  _isRenderedAndVisible: boolean;
-  _invalidated: boolean;
-};
-
 export class CardModel {
   private _ref: View | null = null;
   private _hidden: boolean = false;
