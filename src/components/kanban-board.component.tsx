@@ -72,7 +72,6 @@ type Props = ReactTimeoutProps & KanbanContext & KanbanBoardProps;
 type State = {
   boardState: BoardState;
   boardPositionY: number;
-  dragRotate: Animated.Value;
   pan: Animated.ValueXY;
   startingX: number;
   startingY: number;
@@ -102,7 +101,6 @@ class KanbanBoard extends React.PureComponent<Props, State> {
         columnsMap: new Map(),
       },
       boardPositionY: 0,
-      dragRotate: new Animated.Value(0),
       pan: new Animated.ValueXY(),
       startingX: 0,
       startingY: 0,
@@ -124,15 +122,10 @@ class KanbanBoard extends React.PureComponent<Props, State> {
     let changedColumns: ColumnModel[] | undefined;
     let changedCards: CardModel[] | undefined;
 
-    if (prevProps.columns !== columns) {
-      changedColumns = columns;
-    }
+    console.log(columns);
+    console.log(cards);
 
-    if (prevProps.cards !== cards) {
-      changedCards = cards;
-    }
-
-    if (changedColumns || changedCards) {
+    if (columns && cards) {
       this.refreshBoard(changedColumns, changedCards);
     }
   }
@@ -258,7 +251,6 @@ class KanbanBoard extends React.PureComponent<Props, State> {
       draggedItemWidth: draggedItemWidth,
       draggedItemHeight: draggedItemHeight,
     });
-    this.rotateDragItem(MAX_DEG);
   }
 
   snapTimeout: NodeJS.Timeout | undefined = undefined;
@@ -472,16 +464,6 @@ class KanbanBoard extends React.PureComponent<Props, State> {
     });
   }
 
-  rotateDragItem(toValue: number) {
-    const { dragRotate: rotate } = this.state;
-
-    Animated.spring(rotate, {
-      toValue,
-      friction: 5,
-      useNativeDriver: true,
-    }).start();
-  }
-
   cardPressed = (card: CardModel) => {
     const { onCardPress } = this.props;
     const { movingMode } = this.state;
@@ -503,14 +485,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
 
   renderDragCard() {
     const { cardWidth } = this.props;
-    const {
-      draggedItem,
-      movingMode,
-      pan,
-      dragRotate: rotate,
-      startingX,
-      startingY,
-    } = this.state;
+    const { draggedItem, movingMode, pan, startingX, startingY } = this.state;
     const {
       renderCardContent,
       cardContainerStyle,
@@ -522,11 +497,6 @@ class KanbanBoard extends React.PureComponent<Props, State> {
       return;
     }
 
-    const interpolatedRotateAnimation = rotate.interpolate({
-      inputRange: [-MAX_RANGE, 0, MAX_RANGE],
-      outputRange: [`-${MAX_DEG}deg`, "0deg", `${MAX_DEG}deg`],
-    });
-
     return (
       <Animated.View
         style={{
@@ -534,11 +504,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
           left: startingX,
           top: startingY,
           width: cardWidth - 16,
-          transform: [
-            { translateX: pan.x },
-            { translateY: pan.y },
-            { rotate: interpolatedRotateAnimation },
-          ],
+          transform: [{ translateX: pan.x }, { translateY: pan.y }],
         }}
       >
         <Card

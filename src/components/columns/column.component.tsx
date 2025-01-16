@@ -16,6 +16,7 @@ import { BoardState } from "../../models/board-state";
 import { COLUMN_MARGIN } from "../../board-consts";
 import { KanbanContext } from "../kanban-context.provider";
 import ColumnHeader from "./header.component";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export type ColumnExternalProps = {
   /**
@@ -172,6 +173,7 @@ export class Column extends React.PureComponent<Props, State> {
           ListEmptyComponent={
             renderEmptyColumn ? renderEmptyColumn(column) : <EmptyColumn />
           }
+          contentContainerStyle={{ paddingTop: RFValue(5) }}
         />
       </View>
     );
