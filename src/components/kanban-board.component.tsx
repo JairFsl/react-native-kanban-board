@@ -25,7 +25,6 @@ import WrappedColumnsSnapContainer, {
 import { BoardState } from "../models/board-state";
 import { BoardTools } from "../utils/board-tools";
 import { logError } from "../utils/logger";
-import { MAX_DEG, MAX_RANGE } from "../board-consts";
 import Card, { CardExternalProps } from "./cards/card.component";
 import WrappedColumn, {
   Column,
@@ -119,14 +118,8 @@ class KanbanBoard extends React.PureComponent<Props, State> {
   componentDidUpdate(prevProps: Props) {
     const { columns, cards } = this.props;
 
-    let changedColumns: ColumnModel[] | undefined;
-    let changedCards: CardModel[] | undefined;
-
-    console.log(columns);
-    console.log(cards);
-
-    if (columns && cards) {
-      this.refreshBoard(changedColumns, changedCards);
+    if (prevProps.columns !== columns && prevProps.cards !== cards) {
+      this.refreshBoard(columns, cards);
     }
   }
 
