@@ -5,7 +5,7 @@ export default class EmptyColumn extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.textStyle}>{"Empty"}</Text>
+        <Text style={styles.textStyle}>{"Vazio"}</Text>
       </View>
     );
   }

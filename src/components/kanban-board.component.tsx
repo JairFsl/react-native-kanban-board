@@ -399,7 +399,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
 
     itemsFromColumn = itemsFromColumn!.filter((x) => x.id !== item.id);
 
-    itemsToColumn!.push(item);
+    itemsToColumn!.unshift(item);
     item.columnId = toColumn.id;
     item.invalidate();
 
