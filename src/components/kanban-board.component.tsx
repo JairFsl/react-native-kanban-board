@@ -118,7 +118,7 @@ class KanbanBoard extends React.PureComponent<Props, State> {
   componentDidUpdate(prevProps: Props) {
     const { columns, cards } = this.props;
 
-    if (prevProps.columns !== columns && prevProps.cards !== cards) {
+    if (prevProps.columns !== columns || prevProps.cards !== cards) {
       this.refreshBoard(columns, cards);
     }
   }
