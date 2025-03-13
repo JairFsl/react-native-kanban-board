@@ -64,6 +64,12 @@ export type KanbanBoardProps = CardExternalProps &
      * Style of the kanban container.
      */
     style: StyleProp<ViewStyle>;
+
+    /**
+     * column to Scroll.
+     */
+    initialColumnIndex: number;
+    setInitialColumnIndex: React.Dispatch<React.SetStateAction<number>>;
   };
 
 type Props = ReactTimeoutProps & KanbanContext & KanbanBoardProps;
@@ -468,8 +474,10 @@ class KanbanBoard extends React.PureComponent<Props, State> {
     onCardPress(card);
   };
 
-  onScrollEnd = () => {
+  onScrollEnd = (index: number) => {
     BoardTools.validateAndMeasureBoard(this.state.boardState);
+
+    this.props.setInitialColumnIndex(index);
   };
 
   setBoardPositionY = (e: LayoutChangeEvent) => {
@@ -596,6 +604,8 @@ class KanbanBoard extends React.PureComponent<Props, State> {
               oneColumnWidth={this.props.oneColumnWidth}
               cardWidth={this.props.cardWidth}
               displayedColumns={this.props.displayedColumns}
+              initialColumnIndex={this.props.initialColumnIndex}
+              setInitialColumnIndex={this.props.setInitialColumnIndex}
             />
 
             {this.renderDragCard()}

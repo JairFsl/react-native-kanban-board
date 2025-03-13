@@ -13,18 +13,20 @@ import { Dot } from "./dot.component";
 import { KanbanContext } from "../kanban-context.provider";
 import { ColumnModel } from "../../models/column-model";
 
-const INITIAL_ACTIVE_ITEM = 0;
+// const INITIAL_ACTIVE_ITEM = 0;
 
 type Props = KanbanContext & {
   data: ColumnModel[];
   itemWidth: number;
-  onScrollEndDrag: () => void;
+  onScrollEndDrag: (index: number) => void;
   renderItem: (
     item: ColumnModel,
     singleDataColumnAvailable: boolean
   ) => React.ReactNode;
   sliderWidth: number;
   scrollEnabled: boolean;
+  initialColumnIndex: number;
+  setInitialColumnIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
 type State = {
@@ -33,16 +35,21 @@ type State = {
 };
 
 export class ColumnSnapContainer extends React.PureComponent<Props, State> {
-  
   carouselRef: RefObject<ScrollView | null> = React.createRef<ScrollView>();
 
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      oneColumnActiveItemIndex: INITIAL_ACTIVE_ITEM,
+      oneColumnActiveItemIndex: props.initialColumnIndex,
       scrollOffsetX: 0,
     };
+  }
+
+  componentDidMount(): void {
+    setTimeout(() => {
+      this.scrollToItem(this.props.initialColumnIndex);
+    }, 100);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -55,9 +62,9 @@ export class ColumnSnapContainer extends React.PureComponent<Props, State> {
     }
   }
 
-  onScrollEndDrag = () => {
+  onScrollEndDrag = (index: number) => {
     const { onScrollEndDrag } = this.props;
-    onScrollEndDrag && onScrollEndDrag();
+    onScrollEndDrag && onScrollEndDrag(index);
   };
 
   onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -73,7 +80,7 @@ export class ColumnSnapContainer extends React.PureComponent<Props, State> {
       scrollOffsetX: offsetX,
     });
 
-    this.onScrollEndDrag();
+    this.onScrollEndDrag(activeItemIndex);
   };
 
   snapToPrev = () => {
